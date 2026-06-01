@@ -43,3 +43,51 @@ Script çalıştırıldığında `tent_analiz_grafikleri.png` isimli üç panell
 1. Batch bazında Doğruluk Karşılaştırması (Baseline vs TENT)
 2. Entropi Düşüş Eğrisi (Hareketli ortalama ile düzleştirilmiş)
 3. Kümülatif Ortalama Doğruluk (Kararlılık analizi)
+## 6. Örnek Konsol Çıktısı
+
+Projeyi çalıştırdığınızda terminalde aşağıdaki gibi detaylı bir analiz raporu üretilecektir:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│  ORTAM BİLGİSİ                                               │
+└──────────────────────────────────────────────────────────────┘
+  Cihaz   : CUDA
+  PyTorch : 2.10.0+cu130
+  CUDA    : 13.0
+
+┌──────────────────────────────────────────────────────────────┐
+│  AŞAMA 1 ▸ BASELINE  (Adaptasyon Yok)                        │
+└──────────────────────────────────────────────────────────────┘
+  Baseline: 100%|██████████████████████████████| 50/50 [00:00<00:00, 91.66it/s, Doğruluk=%14.06]
+
+  ● Baseline Ortalama Doğruluk : %12.12
+
+┌──────────────────────────────────────────────────────────────┐
+│  AŞAMA 2 ▸ TENT  (Çevrimiçi Adaptasyon — Etiketsiz)          │
+└──────────────────────────────────────────────────────────────┘
+  TENT    : 100%|██████████████████████████████| 50/50 [00:00<00:00, 51.25it/s, Entropi=0.4640, Doğruluk=%35.94]
+
+  ● TENT Ortalama Doğruluk     : %29.09
+
+
+╔══════════════════════════════════════════════════════════════╗
+║          TEST-TIME ADAPTATION  ·  ANALİZ RAPORU              ║
+╚══════════════════════════════════════════════════════════════╝
+
+  Deney Kurulumu
+  ├─ Model     : ResNet-56  (CIFAR-10 pretrained)
+  ├─ Bozulma   : Gaussian Gürültüsü  σ = 0.25
+  ├─ Batch     : 64 örnek  ×  50 iterasyon
+  └─ Optimize  : Adam  (lr = 0.001)
+
+  📊 Performans Karşılaştırması
+  ├─ Baseline (Adaptasyon Yok)  : % 12.12
+  ├─ TENT     (Online Adapt.)   : % 29.09
+  ├─ Mutlak İyileşme            : +%16.97
+  └─ Göreceli İyileşme          : +%139.95
+
+  📉 Entropi Analizi  H(p) = −Σ p·log(p)
+  ├─ Başlangıç Entropisi        : 0.6780
+  ├─ Bitiş Entropisi            : 0.4640
+  ├─ Düşüş Miktarı             : 0.2141
+  └─ Sonuç                      : ✅  Başarıyla minimize edildi
