@@ -43,6 +43,3 @@ Script çalıştırıldığında `tent_analiz_grafikleri.png` isimli üç panell
 1. Batch bazında Doğruluk Karşılaştırması (Baseline vs TENT)
 2. Entropi Düşüş Eğrisi (Hareketli ortalama ile düzleştirilmiş)
 3. Kümülatif Ortalama Doğruluk (Kararlılık analizi)
-
-## 6. Kurulum ve Çalıştırma Talimatları
-Projenin bağımlılıklarını kurmak ve ana deneyi başlatmak için aşağıdaki komutları kullanabilirsiniz:
